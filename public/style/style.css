@@ -137,6 +137,12 @@ th, td {
     color: #fff;
 }
 
+.slider {
+    position: absolute;
+    background: var(--webco-color-gray);
+    border-radius: 34px;
+}
+
 .input__rounded {
     border: 0;
     border-radius: 8px;
