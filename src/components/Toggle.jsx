@@ -1,11 +1,11 @@
 import {useState, useEffect} from 'react';
 
 const ToggleComponent = () => {
-    const [isDark, setDarkMode] = useState (false);
+    const [isDark, setDarkMode] = useState(false);
 
     const HandleToggleChange = () => {
         setDarkMode(isDark => !isDark);
-    }
+    }   
 
     useEffect(() => {
         const root = document.documentElement;
@@ -16,15 +16,18 @@ const ToggleComponent = () => {
             // Unset dark mode
             root.removeAttribute("data-theme");
         }
-        }
     });
 
     return (
-        <label class = "mode-toggle">
-                <input
-                    
+        <label className = "mode-toggle">
+            <input 
+                type = "checkbox" 
+                id = "dark-mode-toggle" 
+                onChange = {HandleToggleChange}
+            />
+            <span className = "slider"></span>
         </label>
     )
 }
 
-export default Toggle Component;
+export default ToggleComponent;
