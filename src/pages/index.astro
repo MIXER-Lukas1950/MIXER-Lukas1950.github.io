@@ -3,13 +3,16 @@ import Band from '../components/Band.astro';
 import Excerpt from '../components/Excerpt.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProductImage from '../components/ProductImage.astro';
+import Slider from '../components/Slider.jsx';
 import LazyArticles from '../components/LazyArticles.jsx';
 import { title } from 'node:process';
 const pageTitle = "Lukas Deemer";
 const images = [
 	{src: "/img/picture_placeholder.png", alt: "Purple mountains"},
 	{src: "https://placecats.com/1500/1024", alt: "A cat staring at the viewer menacingly"},
-	{src: "https://placehold.co/1440x1024", alt: "A placeholder with dimensions 1440 x 1024"}
+	{src: "https://placehold.co/1440x1024", alt: "A placeholder with dimensions 1440 x 1024"},
+	{src: "https://picsum.photos/1440/1024", alt: "A random image from Picsum"},
+	{src: "https://picsum.photos/1440/1024", alt: "A random image from Picsum"},
 ];
 const excerptTitles = [
 	"Lorem Ipsum",
@@ -21,13 +24,7 @@ const excerptTitles = [
 <BaseLayout pageTitle={pageTitle}>
 	<section aria-labelledby = "primary-heading">
 		<h1 class = "centered" id = "primary-heading">{pageTitle}</h1>
-		<div class = "full__three_column gap__3_rem">
-			{
-				images.map(img => (
-					<ProductImage src = {img.src} alt = {img.alt} />
-				))
-			}
-		</div>
+		<Slider slides = {images} 
 	</section>
 	<Band bandTitle = "Film & Acting">
 		Filmmaking is a great passion of mine. For the past few years, I have worked on
