@@ -24,7 +24,7 @@ const excerptTitles = [
 <BaseLayout pageTitle={pageTitle}>
 	<section aria-labelledby = "primary-heading">
 		<h1 class = "centered" id = "primary-heading">{pageTitle}</h1>
-		<Slider slides = {images} 
+		<Slider slides = {images} client:load />
 	</section>
 	<Band bandTitle = "Film & Acting">
 		Filmmaking is a great passion of mine. For the past few years, I have worked on
@@ -45,4 +45,10 @@ const excerptTitles = [
 
 		</div>
 	</section>
+	<Band bandTitle = "Film & Acting">
+		Filmmaking is a great passion of mine. For the past few years, I have worked on
+		multiple short films as a director, writer, cinematographer, editor, and actor.
+		While my true passion is acting, filmmaking has been a great creative outlet,
+		allowing me to get my ideas across in a way that acting alone cannot.
+	</Band>
 </BaseLayout>
