@@ -9,7 +9,7 @@ import { title } from 'node:process';
 const pageTitle = "Lukas Deemer";
 const images = [
 	{src: "/img/picture_placeholder.png", alt: "Purple mountains"},
-	{src: "https://placecats.com/1500/1024", alt: "A cat staring at the viewer menacingly"},
+	{src: "https://placecats.com/1440/1024", alt: "A cat staring at the viewer menacingly"},
 	{src: "https://placehold.co/1440x1024", alt: "A placeholder with dimensions 1440 x 1024"},
 	{src: "https://picsum.photos/1440/1024", alt: "A random image from Picsum"},
 	{src: "https://picsum.photos/1440/1024", alt: "A random image from Picsum"},
@@ -24,6 +24,7 @@ const excerptTitles = [
 <BaseLayout pageTitle={pageTitle}>
 	<section aria-labelledby = "primary-heading">
 		<h1 class = "centered" id = "primary-heading">{pageTitle}</h1>
+		    <img src = "/img/picture_placeholder.png" alt = "Image placeholder" />
 		<Slider slides = {images} client:load />
 	</section>
 	<Band bandTitle = "Film & Acting">
@@ -45,10 +46,11 @@ const excerptTitles = [
 
 		</div>
 	</section>
-	<Band bandTitle = "Film & Acting">
-		Filmmaking is a great passion of mine. For the past few years, I have worked on
-		multiple short films as a director, writer, cinematographer, editor, and actor.
-		While my true passion is acting, filmmaking has been a great creative outlet,
-		allowing me to get my ideas across in a way that acting alone cannot.
+	<Band bandTitle = "Contact">
+		<a href="https://www.backstage.com/u/Lukas-Deemer/">Backstage</a><br>
+		<a href="https://www.castingcall.club/lukas-deemer">Casting Call Club</a><br>
+		<a href="https://www.instagram.com/mixer_lukas1950/?hl=en">Instagram</a>
+
+
 	</Band>
 </BaseLayout>

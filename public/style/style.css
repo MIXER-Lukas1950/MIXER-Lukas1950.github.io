@@ -153,6 +153,15 @@ th, td {
     display: none;
 }
 
+.headshotImage {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+
+
 .slider {
     position: absolute;
     background: var(--webco-white);
