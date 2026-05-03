@@ -1,56 +1,238 @@
 ---
-import Band from '../components/Band.astro';
-import Excerpt from '../components/Excerpt.astro';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import ProductImage from '../components/ProductImage.astro';
-import Slider from '../components/Slider.jsx';
-import LazyArticles from '../components/LazyArticles.jsx';
-import { title } from 'node:process';
-const pageTitle = "Lukas Deemer";
-const images = [
-	{src: "/img/picture_placeholder.png", alt: "Purple mountains"},
-	{src: "https://placecats.com/1440/1024", alt: "A cat staring at the viewer menacingly"},
-	{src: "https://placehold.co/1440x1024", alt: "A placeholder with dimensions 1440 x 1024"},
-	{src: "https://picsum.photos/1440/1024", alt: "A random image from Picsum"},
-	{src: "https://picsum.photos/1440/1024", alt: "A random image from Picsum"},
-];
-const excerptTitles = [
-	"Lorem Ipsum",
-	"Etiam Accumsan",
-	"Donec Gravida",
-	"Suspendisse Consectetur"
-]
+import BaseLayout from '../layouts/BaseLayout.astro'; 
 ---
-<BaseLayout pageTitle={pageTitle}>
-	<section aria-labelledby = "primary-heading">
-		<h1 class = "centered" id = "primary-heading">{pageTitle}</h1>
-		    <img src = "/img/picture_placeholder.png" alt = "Image placeholder" />
-		<Slider slides = {images} client:load />
-	</section>
-	<Band bandTitle = "Film & Acting">
-		Filmmaking is a great passion of mine. For the past few years, I have worked on
-		multiple short films as a director, writer, cinematographer, editor, and actor.
-		While my true passion is acting, filmmaking has been a great creative outlet,
-		allowing me to get my ideas across in a way that acting alone cannot.
-	</Band>
-	<section aria-labelledby = "news-heading">
-		<h2 id = "news-heading" class = "centered">News Ipsum</h2>
-		<div class = "full__four_column container text__column">
-			{
-				excerptTitles.map(title => (
-					<Excerpt excerptTitle = {title}>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vel iaculis lacus, et fringilla ex. Quisque sed sapien metus. Suspendisse congue hendrerit dapibus. Mauris ut consectetur quam, vel auctor elit. Nulla gravida urna lacinia est dapibus faucibus. Vivamus nulla felis, consequat eget dolor id, bibendum interdum lacus. Sed sit amet ipsum et nibh porta imperdiet sit amet et nisi. Nam maximus libero vel sodales blandit. Quisque vitae sagittis elit. Fusce at scelerisque magna. Suspendisse bibendum nulla non scelerisque interdum. Nullam vel lacus congue, tristique velit pretium, auctor mauris. Fusce in sem sit amet eros feugiat bibendum a nec urna. Morbi.
-					</Excerpt>
-				))
-			}
 
-		</div>
-	</section>
-	<Band bandTitle = "Contact">
-		<a href="https://www.backstage.com/u/Lukas-Deemer/">Backstage</a><br>
-		<a href="https://www.castingcall.club/lukas-deemer">Casting Call Club</a><br>
-		<a href="https://www.instagram.com/mixer_lukas1950/?hl=en">Instagram</a>
+<BaseLayout>
+  <section id="home" class="hero-section">
+    <img src="https://picsum.photos/seed/lukas/1920/1080" alt="Lukas Deemer Large Headshot" class="hero-image" />
+    <h1 class="hero-name">Lukas Deemer</h1>
+  </section>
 
+  <section id="showreel" class="content-section">
+    <div class="section-container">
+      <h2 class="section-title">Showreel</h2>
+      
+      <div class="reel-placeholder">
+        <h3>Reel Coming Soon</h3>
+        <p>Currently in post-production. Check back soon!</p>
+      </div>
 
-	</Band>
+    </div>
+  </section>
+  
+  <section id="film-acting" class="content-section alternate-bg">
+    <div class="section-container">
+      <h2 class="section-title">Film & Acting</h2>
+      
+      <div class="three-column-grid">
+        <div class="film-card">
+          <img src="https://picsum.photos/seed/film1/600/400" alt="Film 1 Placeholder" class="film-thumbnail" />
+          <h3 class="film-title">Film Title One</h3>
+          <p class="film-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula.</p>
+        </div>
+
+        <div class="film-card">
+          <img src="https://picsum.photos/seed/film2/600/400" alt="Film 2 Placeholder" class="film-thumbnail" />
+          <h3 class="film-title">Film Title Two</h3>
+          <p class="film-description">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor.</p>
+        </div>
+
+        <div class="film-card">
+          <img src="https://picsum.photos/seed/film3/600/400" alt="Film 3 Placeholder" class="film-thumbnail" />
+          <h3 class="film-title">Film Title Three</h3>
+          <p class="film-description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum sed ut perspiciatis.</p>
+        </div>
+      </div>
+
+      <h3 class="subsection-title">Experience & Background</h3>
+      
+      <div class="experience-list">
+        <div class="experience-item">
+          <div class="experience-meta">
+            <h3 class="experience-role">Lead Actor</h3>
+            <span class="experience-year">2025</span>
+          </div>
+          <div class="experience-details">
+            <h4 class="experience-project">Short Film Project Name</h4>
+            <p class="experience-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare.</p>
+          </div>
+        </div>
+
+        <div class="experience-item">
+          <div class="experience-meta">
+            <h3 class="experience-role">Director & Editor</h3>
+            <span class="experience-year">2024 - 2025</span>
+          </div>
+          <div class="experience-details">
+            <h4 class="experience-project">Independent Web Series</h4>
+            <p class="experience-desc">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Reprehenderit in voluptate velit.</p>
+          </div>
+        </div>
+
+        <div class="experience-item">
+          <div class="experience-meta">
+            <h3 class="experience-role">Supporting Actor</h3>
+            <span class="experience-year">2023</span>
+          </div>
+          <div class="experience-details">
+            <h4 class="experience-project">Feature Film Title</h4>
+            <p class="experience-desc">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="subsection-title">Future Plans</h3>
+      
+      <div class="split-layout">
+        <div class="text-content">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.</p>
+          <p>Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+        </div>
+        
+        <div class="media-content">
+          <img src="https://picsum.photos/seed/future/600/400" alt="Future Plans Placeholder" class="placeholder-media" />
+        </div>
+      </div>
+      
+    </div>
+  </section>
+  
+  <section id="editing" class="content-section">
+    <div class="section-container">
+      <h2 class="section-title">Video Editing</h2>
+      
+      <div class="expertise-text">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Curabitur aliquet quam id dui posuere blandit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.</p>
+      </div>
+
+      <div class="three-column-grid">
+        <div class="film-card">
+          <img src="https://picsum.photos/seed/premiere/300/300" alt="Premiere Pro" class="software-logo" />
+          <h3 class="film-title">Premiere Pro</h3>
+        </div>
+
+        <div class="film-card">
+          <img src="https://picsum.photos/seed/finalcut/300/300" alt="Final Cut Pro" class="software-logo" />
+          <h3 class="film-title">Final Cut Pro</h3>
+        </div>
+
+        <div class="film-card">
+          <img src="https://picsum.photos/seed/filmora/300/300" alt="Filmora" class="software-logo" />
+          <h3 class="film-title">Filmora</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="youtube" class="content-section alternate-bg">
+    <div class="section-container">
+      <h2 class="section-title">YouTube Content</h2>
+      
+      <div class="expertise-text">
+        <p>Check out my latest content on <a href="https://www.youtube.com/@Lukas1950" target="_blank" style="color: var(--accent-color); text-decoration: none; font-weight: bold;">@Lukas1950</a>. Scroll through some of my favorite videos below!</p>
+      </div>
+
+      <div class="video-carousel">
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/bU27NlyQEow" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/ZWyBJWSNlDY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/NtdOd_aHE7I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/Ic_MWojEO58" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/WkS1wDFbRp4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/AAGqi9eNdyU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/nBsfaDJlHWw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/TUKKx__dubo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/Lf3HTRiJ0Fw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="contact" class="content-section">
+    <div class="section-container">
+      <h2 class="section-title">Get In Touch</h2>
+
+      <div class="availability-status">
+        <span class="status-dot"></span>
+        <span class="status-text">Available to Work With</span>
+      </div>
+      
+      <div class="contact-layout">
+        
+        <div class="contact-form-container">
+          <h3 class="contact-subtitle">Send me a message</h3>
+          <form action="https://formsubmit.co/lukasdeemer@gmail.com" method="POST" class="contact-form">
+            <input type="hidden" name="_captcha" value="false">
+            
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required placeholder="Your Name">
+            </div>
+            
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required placeholder="Your Email Address">
+            </div>
+            
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" required maxlength="500" placeholder="Type your message here (Max 500 characters)"></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">Send Message</button>
+          </form>
+        </div>
+
+        <div class="social-links-container">
+          <h3 class="contact-subtitle">Find me online</h3>
+          <div class="social-grid">
+            
+            <a href="https://www.youtube.com/@Lukas1950/featured" target="_blank" class="social-card">
+              <img src="https://cdn.simpleicons.org/youtube/FF0000" alt="YouTube Icon" class="social-icon" />
+              <span>YouTube</span>
+            </a>
+
+            <a href="https://www.backstage.com/u/Lukas-Deemer/" target="_blank" class="social-card">
+              <img src="https://picsum.photos/seed/backstage/100" alt="Backstage Icon Placeholder" class="social-icon round-icon" />
+              <span>Backstage</span>
+            </a>
+
+            <a href="https://www.castingcall.club/lukas-deemer" target="_blank" class="social-card">
+              <img src="https://picsum.photos/seed/casting/100" alt="Casting Call Club Icon Placeholder" class="social-icon round-icon" />
+              <span>Casting Call Club</span>
+            </a>
+
+            <a href="https://www.instagram.com/mixer_lukas1950/" target="_blank" class="social-card">
+              <img src="https://cdn.simpleicons.org/instagram/E4405F" alt="Instagram Icon" class="social-icon" />
+              <span>Instagram</span>
+            </a>
+
+            <a href="https://discordapp.com/users/679711101755326515" target="_blank" class="social-card">
+              <img src="https://cdn.simpleicons.org/discord/5865F2" alt="Discord Icon" class="social-icon" />
+              <span>Discord</span>
+            </a>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
 </BaseLayout>
