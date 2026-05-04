@@ -425,7 +425,7 @@ body {
 }
 
 .status-dot {
-  display: block; /* Ensures the span behaves properly and renders */
+  display: block;
   width: 14px;
   height: 14px;
   background-color: #23a559; /* Discord-style green */
@@ -587,4 +587,35 @@ body {
   color: var(--text-color);
   font-size: 0.9rem;
   opacity: 0.8; 
+}
+
+/* --- Resume Download Button Styles (Subtle & Modern) --- */
+.resume-download-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: transparent;
+  color: var(--text-color);
+  border: 1px solid var(--header-border);
+  padding: 10px 24px;
+  border-radius: 8px; /* Modern square edges with slight rounding */
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  opacity: 0.7; /* Makes it look slightly faded until hovered */
+}
+
+.download-btn:hover {
+  background-color: var(--form-bg);
+  border-color: var(--text-color);
+  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
