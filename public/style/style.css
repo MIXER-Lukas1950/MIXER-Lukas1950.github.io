@@ -527,6 +527,7 @@ body {
 
 .social-links-container {
   flex: 1;
+  padding-top: 41px;
 }
 
 .social-grid {
@@ -569,6 +570,10 @@ body {
 @media (max-width: 900px) {
   .contact-layout {
     flex-direction: column;
+  }
+
+  .social-links-container {
+    padding-top: 0;
   }
 }
 
