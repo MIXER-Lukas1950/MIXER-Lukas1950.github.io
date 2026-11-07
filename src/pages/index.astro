@@ -304,7 +304,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   if (timecode && !reduceMotion) {
     const start = performance.now();
-    const pad = (n) => String(n).padStart(2, '0');
+    const pad = (n: number) => String(n).padStart(2, '0');
 
     const tick = () => {
       const t = (performance.now() - start) / 1000;
@@ -324,13 +324,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   const DRIPS_PER_TITLE = 3;
 
   // Finds the text baseline so drips start right at the bottom of the letters
-  const baselineOffset = (title) => {
-    const textNode = title.firstChild;
+  const baselineOffset = (title: HTMLElement): number => {
+    const textNode = title.firstChild as Text;
     const probe = document.createElement('span');
     probe.style.cssText = 'display:inline-block;width:0;height:0;vertical-align:baseline;';
     title.insertBefore(probe, textNode.nextSibling);
     const range = document.createRange();
-    const last = textNode.textContent.length - 1;
+    const last = (textNode.textContent ?? '').length - 1;
     range.setStart(textNode, last);
     range.setEnd(textNode, last + 1);
     const offset = range.getBoundingClientRect().bottom - probe.getBoundingClientRect().top;
@@ -338,8 +338,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     return offset;
   };
 
-  const placeDrip = (title, drip, offset) => {
-    const textNode = title.firstChild;
+  const placeDrip = (title: HTMLElement, drip: HTMLSpanElement, offset: number) => {
+    const textNode = title.firstChild as Text;
     const range = document.createRange();
     range.setStart(textNode, Number(drip.dataset.char));
     range.setEnd(textNode, Number(drip.dataset.char) + 1);
@@ -349,14 +349,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     drip.style.top = `${letter.bottom - offset - box.top - 3}px`;
   };
 
-  const titles = [...document.querySelectorAll('.section-title')];
+  const titles = [...document.querySelectorAll<HTMLElement>('.section-title')];
 
   titles.forEach((title) => {
     const textNode = title.firstChild;
     if (!textNode || textNode.nodeType !== Node.TEXT_NODE) return;
 
     // Pick letters spread across the title (skip spaces and punctuation)
-    const letters = [...textNode.textContent]
+    const letters = [...(textNode.textContent ?? '')]
       .map((ch, i) => (/[A-Za-z]/.test(ch) ? i : -1))
       .filter((i) => i >= 0);
     const step = letters.length / DRIPS_PER_TITLE;
@@ -366,7 +366,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       const drip = document.createElement('span');
       drip.className = 'drip';
       drip.setAttribute('aria-hidden', 'true');
-      drip.dataset.char = pick;
+      drip.dataset.char = String(pick);
       drip.dataset.x = (0.3 + Math.random() * 0.4).toFixed(2);
       drip.style.setProperty('--w', `${3 + Math.round(Math.random() * 2)}px`);
       drip.style.setProperty('--len', `${16 + Math.round(Math.random() * 30)}px`);
@@ -378,7 +378,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   const placeAll = () => titles.forEach((title) => {
     const offset = baselineOffset(title);
-    title.querySelectorAll('.drip').forEach((drip) => placeDrip(title, drip, offset));
+    title.querySelectorAll<HTMLSpanElement>('.drip').forEach((drip) => placeDrip(title, drip, offset));
   });
   document.fonts.ready.then(placeAll);
   window.addEventListener('resize', placeAll);
