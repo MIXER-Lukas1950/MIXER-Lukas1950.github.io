@@ -151,17 +151,6 @@ textarea:focus-visible {
   inset: 0;
   background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.8) 100%);
   z-index: 0;
-  animation: projector-flicker 5s infinite;
-}
-
-@keyframes projector-flicker {
-  0%, 100% { opacity: 1; }
-  41% { opacity: 1; }
-  42% { opacity: 0.9; }
-  43% { opacity: 1; }
-  77% { opacity: 1; }
-  78% { opacity: 0.93; }
-  80% { opacity: 1; }
 }
 
 /* Corner brackets, REC light, and timecode */
@@ -262,6 +251,63 @@ textarea:focus-visible {
   color: var(--print-white);
   text-align: left;
   margin: 0 0 48px 0;
+}
+
+/* --- Blood drips from section titles (placed by the script in index.astro) --- */
+.section-title {
+  position: relative;
+}
+
+.drip {
+  position: absolute;
+  width: var(--w, 4px);
+  height: 0;
+  margin-left: calc(var(--w, 4px) / -2);
+  background: linear-gradient(to bottom, #5e0a0d, var(--blood));
+  border-radius: 0 0 4px 4px;
+  pointer-events: none;
+}
+
+/* Where the blood leaves the letter: a little wider, so it reads as running off the edge */
+.drip::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: calc(var(--w, 4px) + 5px);
+  height: 7px;
+  transform: translateX(-50%);
+  background-color: #5e0a0d;
+  border-radius: 0 0 50% 50%;
+}
+
+/* The drop that forms at the end of each drip */
+.drip::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  width: calc(var(--w, 4px) + 4px);
+  height: calc(var(--w, 4px) + 5px);
+  transform: translateX(-50%);
+  background-color: var(--blood);
+  border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.bleeding .drip {
+  animation: drip-run var(--dur, 2.4s) cubic-bezier(0.55, 0, 0.35, 1) var(--delay, 0s) forwards;
+}
+
+.bleeding .drip::after {
+  opacity: 1;
+  transition-delay: calc(var(--delay, 0s) + 0.3s);
+}
+
+@keyframes drip-run {
+  from { height: 0; }
+  to { height: var(--len, 30px); }
 }
 
 /* Screenplay scene heading above each section title */
@@ -807,9 +853,14 @@ textarea:focus-visible {
   }
 
   body::before,
-  .hero-section::after,
   .status-dot,
   .vf-dot {
     animation: none;
+  }
+
+  /* Drips appear already run, with no movement */
+  .bleeding .drip {
+    animation: none;
+    height: var(--len, 30px);
   }
 }
