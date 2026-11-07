@@ -16,6 +16,7 @@
 
   --font-display: "League Gothic", "Oswald", "Arial Narrow", sans-serif;
   --font-body: "Libre Franklin", "Franklin Gothic Medium", "Helvetica Neue", Arial, sans-serif;
+  --font-script: "Courier Prime", "Courier New", Courier, monospace; /* screenplay type */
 
   /* Older names kept so any leftover inline styles still work */
   --bg-color: var(--theater);
@@ -50,6 +51,16 @@ body::before {
   pointer-events: none;
   opacity: 0.07;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain-shift 0.9s steps(1) infinite; /* grain jumps like a running projector */
+}
+
+@keyframes grain-shift {
+  0%   { background-position: 0 0; }
+  20%  { background-position: -40px 25px; }
+  40%  { background-position: 35px -15px; }
+  60%  { background-position: -20px -40px; }
+  80%  { background-position: 30px 35px; }
+  100% { background-position: 0 0; }
 }
 
 ::selection {
@@ -112,14 +123,11 @@ textarea:focus-visible {
   opacity: 1;
 }
 
-/* --- Hero: a letterboxed title card --- */
+/* --- Hero: seen through a camera viewfinder --- */
 .hero-section {
   position: relative;
-  height: 100vh;
+  height: calc(100vh - 67px); /* full screen minus the menu bar, so all four brackets show */
   width: 100%;
-  box-sizing: border-box;
-  border-top: 10vh solid var(--screen-black);
-  border-bottom: 10vh solid var(--screen-black);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -141,8 +149,69 @@ textarea:focus-visible {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.75) 100%);
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.8) 100%);
   z-index: 0;
+  animation: projector-flicker 5s infinite;
+}
+
+@keyframes projector-flicker {
+  0%, 100% { opacity: 1; }
+  41% { opacity: 1; }
+  42% { opacity: 0.9; }
+  43% { opacity: 1; }
+  77% { opacity: 1; }
+  78% { opacity: 0.93; }
+  80% { opacity: 1; }
+}
+
+/* Corner brackets, REC light, and timecode */
+.viewfinder {
+  --bracket: rgba(236, 228, 216, 0.85);
+  --len: 44px;
+  position: absolute;
+  inset: 5%;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--bracket), var(--bracket)) top left / var(--len) 2px no-repeat,
+    linear-gradient(var(--bracket), var(--bracket)) top left / 2px var(--len) no-repeat,
+    linear-gradient(var(--bracket), var(--bracket)) top right / var(--len) 2px no-repeat,
+    linear-gradient(var(--bracket), var(--bracket)) top right / 2px var(--len) no-repeat,
+    linear-gradient(var(--bracket), var(--bracket)) bottom left / var(--len) 2px no-repeat,
+    linear-gradient(var(--bracket), var(--bracket)) bottom left / 2px var(--len) no-repeat,
+    linear-gradient(var(--bracket), var(--bracket)) bottom right / var(--len) 2px no-repeat,
+    linear-gradient(var(--bracket), var(--bracket)) bottom right / 2px var(--len) no-repeat;
+  font-family: var(--font-script);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--print-white);
+}
+
+.vf-rec,
+.vf-timecode {
+  position: absolute;
+  top: 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: 0.05em;
+}
+
+.vf-rec {
+  left: 26px;
+}
+
+.vf-timecode {
+  right: 26px;
+  font-variant-numeric: tabular-nums;
+}
+
+.vf-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--blood-bright);
+  animation: rec-light 1.6s ease-in-out infinite;
 }
 
 .hero-name {
@@ -193,6 +262,17 @@ textarea:focus-visible {
   color: var(--print-white);
   text-align: left;
   margin: 0 0 48px 0;
+}
+
+/* Screenplay scene heading above each section title */
+.slugline {
+  font-family: var(--font-script);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--print-white);
+  opacity: 0.6;
+  margin: 0 0 14px 0;
 }
 
 .subsection-title {
@@ -263,20 +343,45 @@ textarea:focus-visible {
   text-align: left;
 }
 
+.film-card > a {
+  position: relative;
+  display: block;
+  margin-bottom: 18px;
+  background-color: var(--screen-black);
+}
+
 .film-thumbnail {
   display: block;
   width: 100%;
   aspect-ratio: 16 / 9;
-  box-sizing: border-box;
-  padding: 7.2% 0; /* letterbox bars: 2.39:1 picture inside a 16:9 frame */
-  background-color: var(--screen-black);
   object-fit: cover;
-  margin-bottom: 18px;
-  transition: filter 0.25s ease;
+  transition: filter 0.3s ease;
 }
 
-.film-card a:hover .film-thumbnail {
-  filter: brightness(1.15);
+/* Hover: the still drains to black and white under a blood-red wash, with a play mark */
+.film-card > a::after {
+  content: "\25B6";
+  content: "\25B6" / "";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.6rem;
+  color: var(--print-white);
+  background-color: rgba(164, 22, 26, 0.6);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.film-card > a:hover::after,
+.film-card > a:focus-visible::after {
+  opacity: 1;
+}
+
+.film-card > a:hover .film-thumbnail,
+.film-card > a:focus-visible .film-thumbnail {
+  filter: grayscale(1) contrast(1.15);
 }
 
 .film-title {
@@ -659,9 +764,30 @@ textarea:focus-visible {
   }
 
   .hero-section {
-    height: 100svh;
-    border-top-width: 7svh;
-    border-bottom-width: 7svh;
+    height: 85svh;
+  }
+
+  .viewfinder {
+    --len: 28px;
+    inset: 4%;
+    font-size: 0.85rem;
+  }
+
+  .vf-rec,
+  .vf-timecode {
+    top: 16px;
+  }
+
+  .vf-rec {
+    left: 18px;
+  }
+
+  .vf-timecode {
+    right: 18px;
+  }
+
+  .slugline {
+    font-size: 0.85rem;
   }
 
   .content-section {
@@ -680,7 +806,10 @@ textarea:focus-visible {
     scroll-behavior: auto;
   }
 
-  .status-dot {
+  body::before,
+  .hero-section::after,
+  .status-dot,
+  .vf-dot {
     animation: none;
   }
 }

@@ -5,12 +5,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <BaseLayout>
   <section id="home" class="hero-section" style="flex-direction: column;">
     <img src="https://i.ytimg.com/vi/PkZ5PSclxp0/maxresdefault.jpg" alt="Still from Egg, a short film directed by Lukas Deemer" class="hero-image" />
+    <div class="viewfinder" aria-hidden="true">
+      <span class="vf-rec"><span class="vf-dot"></span>REC</span>
+      <span class="vf-timecode" id="timecode">00:00:00:00</span>
+    </div>
     <h1 class="hero-name">Lukas Deemer</h1>
     <p style="position: relative; z-index: 1; color: white; font-size: 1.5rem; margin: 10px 0 0; letter-spacing: 1px; text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.7); text-align: center;">Filmmaker · Actor · Editor</p>
   </section>
 
   <section id="showreel" class="content-section">
     <div class="section-container">
+      <p class="slugline">INT. SCREENING ROOM – NIGHT</p>
       <h2 class="section-title">Featured Film: Egg</h2>
 
       <div style="max-width: 900px; width: 100%; margin: 0 auto; aspect-ratio: 16 / 9; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);">
@@ -22,6 +27,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   <section id="film-acting" class="content-section alternate-bg">
     <div class="section-container">
+      <p class="slugline">INT. SOUNDSTAGE – CONTINUOUS</p>
       <h2 class="section-title">Film & Acting</h2>
 
       <div class="three-column-grid">
@@ -158,6 +164,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   <section id="editing" class="content-section">
     <div class="section-container">
+      <p class="slugline">INT. EDITING BAY – 3 A.M.</p>
       <h2 class="section-title">Video Editing</h2>
 
       <div class="expertise-text">
@@ -185,6 +192,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   <section id="youtube" class="content-section alternate-bg">
     <div class="section-container">
+      <p class="slugline">INT. BEDROOM STUDIO – SINCE 2020</p>
       <h2 class="section-title">YouTube Content</h2>
 
       <div class="expertise-text">
@@ -222,6 +230,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   <section id="contact" class="content-section">
     <div class="section-container">
+      <p class="slugline">INT. PRODUCTION OFFICE – DAY</p>
       <h2 class="section-title">Get In Touch</h2>
 
       <div class="availability-status">
@@ -287,3 +296,26 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   </section>
 
 </BaseLayout>
+
+<script>
+  // Running camera timecode (hours:minutes:seconds:frames at 24 fps)
+  const timecode = document.getElementById('timecode');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (timecode && !reduceMotion) {
+    const start = performance.now();
+    const pad = (n) => String(n).padStart(2, '0');
+
+    const tick = () => {
+      const t = (performance.now() - start) / 1000;
+      const frames = Math.floor((t % 1) * 24);
+      const seconds = Math.floor(t) % 60;
+      const minutes = Math.floor(t / 60) % 60;
+      const hours = Math.floor(t / 3600);
+      timecode.textContent = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}:${pad(frames)}`;
+      requestAnimationFrame(tick);
+    };
+
+    requestAnimationFrame(tick);
+  }
+</script>
