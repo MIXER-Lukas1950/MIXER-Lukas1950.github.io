@@ -9,6 +9,17 @@
     <title>Lukas Deemer | Filmmaker & Actor</title>
     <meta name="description" content="Portfolio of Lukas Deemer, a filmmaker, actor, and editor from Latrobe, PA. Short films, stage work, and editing." />
 
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Link preview card (email, texts, LinkedIn) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://mixer-lukas1950.github.io/" />
+    <meta property="og:title" content="Lukas Deemer | Filmmaker & Actor" />
+    <meta property="og:description" content="Short films, stage work, and editing by Lukas Deemer." />
+    <meta property="og:image" content="https://i.ytimg.com/vi/PkZ5PSclxp0/maxresdefault.jpg" />
+    <meta property="og:image:alt" content="Still from Egg, a short film by Lukas Deemer" />
+    <meta name="twitter:card" content="summary_large_image" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=League+Gothic&family=Libre+Franklin:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -17,17 +28,19 @@
   </head>
   <body>
     <header class="main-header">
-      <a href="#home" class="profile-link">
+      <a href="/#home" class="profile-link">
         <img src="/img/HeadshotForSite.jpg" alt="Lukas Deemer headshot" class="header-profile-pic" />
       </a>
 
       <nav class="main-nav">
-        <a href="#home">Home</a>
-        <a href="#film-acting">Film & Acting</a>
-        <a href="#editing">Editing</a>
-        <a href="#youtube">YouTube</a>
-        <a href="#contact">Contact</a>
+        <a href="/#home">Home</a>
+        <a href="/#film-acting">Film & Acting</a>
+        <a href="/#editing">Editing</a>
+        <a href="/#youtube">YouTube</a>
+        <a href="/#contact">Contact</a>
       </nav>
+
+      <div class="scrub-bar" aria-hidden="true"><span class="scrub-bar__fill" id="scrub-fill"></span></div>
     </header>
 
     <main>
@@ -37,5 +50,21 @@
     <footer class="main-footer">
       <p>&copy; 2026 Lukas Deemer. All Rights Reserved.</p>
     </footer>
+
+    <script>
+      // Fill the scrub bar as the page scrolls, like a video timeline
+      const fill = document.getElementById('scrub-fill');
+
+      const update = () => {
+        if (!fill) return;
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = max > 0 ? window.scrollY / max : 0;
+        fill.style.width = `${Math.min(100, progress * 100)}%`;
+      };
+
+      window.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    </script>
   </body>
 </html>

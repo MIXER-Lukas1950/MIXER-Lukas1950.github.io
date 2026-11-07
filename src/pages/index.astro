@@ -220,33 +220,72 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <h2 class="section-title">YouTube Content</h2>
 
       <div class="expertise-text">
-        <p>Check out Lukas's latest content on <a href="https://www.youtube.com/@Lukas1950" target="_blank" style="color: var(--accent-color); text-decoration: none; font-weight: bold;">@Lukas1950</a>. Scroll through his short films below!</p>
+        <p>Check out Lukas's latest content on <a href="https://www.youtube.com/@Lukas1950" target="_blank" style="color: var(--accent-color); text-decoration: none; font-weight: bold;">@Lukas1950</a>. Click any film to play it here.</p>
       </div>
 
-      <div class="video-carousel">
-        <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/bU27NlyQEow" title="TERMINALITY | Short Film" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      <div class="three-column-grid video-grid">
+        <div class="film-card">
+          <a href="https://www.youtube.com/watch?v=E6uH69HJN1M" class="video-poster" data-video="E6uH69HJN1M" data-title="The Roommates" target="_blank" aria-label="Play The Roommates">
+            <img src="https://i.ytimg.com/vi/E6uH69HJN1M/maxresdefault.jpg" alt="" class="film-thumbnail" loading="lazy" />
+          </a>
+          <h3 class="film-title">The Roommates</h3>
+          <p class="film-description">Short film. Filmmaking 2, spring 2026.</p>
         </div>
-        <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/82Xswk8K5lY" title="S.T.P. | Music Video (Unofficial)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+        <div class="film-card">
+          <a href="https://www.youtube.com/watch?v=k5RjAIJt6uY" class="video-poster" data-video="k5RjAIJt6uY" data-title="Heretic “Creep” Recreation" target="_blank" aria-label="Play Heretic “Creep” Recreation">
+            <img src="https://i.ytimg.com/vi/k5RjAIJt6uY/maxresdefault.jpg" alt="" class="film-thumbnail" loading="lazy" />
+          </a>
+          <h3 class="film-title">Heretic “Creep” Recreation</h3>
+          <p class="film-description">Scene recreation. Filmmaking 2, spring 2026.</p>
         </div>
-        <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/E6uH69HJN1M" title="The Roommates | Short Film" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+        <div class="film-card">
+          <a href="https://www.youtube.com/watch?v=82Xswk8K5lY" class="video-poster" data-video="82Xswk8K5lY" data-title="S.T.P." target="_blank" aria-label="Play S.T.P.">
+            <img src="https://i.ytimg.com/vi/82Xswk8K5lY/maxresdefault.jpg" alt="" class="film-thumbnail" loading="lazy" />
+          </a>
+          <h3 class="film-title">S.T.P.</h3>
+          <p class="film-description">Music video (unofficial). Filmmaking 2, spring 2026.</p>
         </div>
-        <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/T9Dmm-qokH4" title="Laugh Man | Short Film" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+        <div class="film-card">
+          <a href="https://www.youtube.com/watch?v=bU27NlyQEow" class="video-poster" data-video="bU27NlyQEow" data-title="TERMINALITY" target="_blank" aria-label="Play TERMINALITY">
+            <img src="https://i.ytimg.com/vi/bU27NlyQEow/maxresdefault.jpg" alt="" class="film-thumbnail" loading="lazy" />
+          </a>
+          <h3 class="film-title">TERMINALITY</h3>
+          <p class="film-description">Short film. Electronic &amp; Intermedia Art, fall 2025.</p>
         </div>
-        <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/k5RjAIJt6uY" title="Heretic &quot;Creep&quot; Scene Recreation" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+        <div class="film-card">
+          <a href="https://www.youtube.com/watch?v=T9Dmm-qokH4" class="video-poster" data-video="T9Dmm-qokH4" data-title="Laugh Man" target="_blank" aria-label="Play Laugh Man">
+            <img src="https://i.ytimg.com/vi/T9Dmm-qokH4/maxresdefault.jpg" alt="" class="film-thumbnail" loading="lazy" />
+          </a>
+          <h3 class="film-title">Laugh Man</h3>
+          <p class="film-description">Short film. Filmmaking 1, spring 2025.</p>
         </div>
-        <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/Ic_MWojEO58" title="contingency | Short Film" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+        <div class="film-card">
+          <a href="https://www.youtube.com/watch?v=dU3zRaGguhs" class="video-poster" data-video="dU3zRaGguhs" data-title="Garbanzo Energy Beans" target="_blank" aria-label="Play Garbanzo Energy Beans">
+            <img src="https://i.ytimg.com/vi/dU3zRaGguhs/maxresdefault.jpg" alt="" class="film-thumbnail" loading="lazy" />
+          </a>
+          <h3 class="film-title">Garbanzo Energy Beans</h3>
+          <p class="film-description">Short film. Film as a Narrative Art, fall 2024.</p>
         </div>
-        <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/dU3zRaGguhs" title="Garbanzo Energy Beans | Short Film" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+        <div class="film-card">
+          <a href="https://www.youtube.com/watch?v=Ic_MWojEO58" class="video-poster" data-video="Ic_MWojEO58" data-title="contingency" target="_blank" aria-label="Play contingency">
+            <img src="https://i.ytimg.com/vi/Ic_MWojEO58/maxresdefault.jpg" alt="" class="film-thumbnail" loading="lazy" />
+          </a>
+          <h3 class="film-title">contingency</h3>
+          <p class="film-description">Short film. Made in one night, June 2024.</p>
         </div>
-        <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/m2wEKuS8KnQ" title="An Analysis Of My 4 Short Films" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+        <div class="film-card">
+          <a href="https://www.youtube.com/watch?v=m2wEKuS8KnQ" class="video-poster" data-video="m2wEKuS8KnQ" data-title="An Analysis of My 4 Short Films" target="_blank" aria-label="Play An Analysis of My 4 Short Films">
+            <img src="https://i.ytimg.com/vi/m2wEKuS8KnQ/maxresdefault.jpg" alt="" class="film-thumbnail" loading="lazy" />
+          </a>
+          <h3 class="film-title">An Analysis of My 4 Short Films</h3>
+          <p class="film-description">Video essay. 2026.</p>
         </div>
       </div>
     </div>
@@ -356,4 +395,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }, { threshold: 0.6 });
 
   titles.forEach((title) => watcher.observe(title));
+
+  // Posters play their YouTube video in place when clicked (without JavaScript they open YouTube)
+  document.querySelectorAll<HTMLAnchorElement>('.video-poster').forEach((poster) => {
+    poster.addEventListener('click', (event) => {
+      event.preventDefault();
+      const frame = document.createElement('div');
+      frame.className = 'video-frame';
+      const player = document.createElement('iframe');
+      player.src = `https://www.youtube-nocookie.com/embed/${poster.dataset.video}?autoplay=1&rel=0`;
+      player.title = poster.dataset.title ?? 'YouTube video';
+      player.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      player.allowFullscreen = true;
+      frame.appendChild(player);
+      poster.replaceWith(frame);
+    });
+  });
 </script>
