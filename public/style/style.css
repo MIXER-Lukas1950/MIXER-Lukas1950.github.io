@@ -624,3 +624,47 @@ body {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
+
+/* --- Mobile Fixes (phones) --- */
+@media (max-width: 600px) {
+  .main-header {
+    flex-wrap: wrap;
+    padding: 8px 4%;
+    row-gap: 6px;
+  }
+
+  .header-profile-pic {
+    width: 40px;
+    height: 40px;
+  }
+
+  .theme-toggle {
+    margin-left: auto;
+  }
+
+  .main-nav {
+    order: 3;
+    width: 100%;
+    margin: 0;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: 0.9rem;
+  }
+
+  .main-nav a {
+    white-space: nowrap;
+  }
+
+  .content-section {
+    min-height: auto;
+    padding: 60px 5%;
+  }
+
+  .hero-name {
+    font-size: 2.8rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+}
