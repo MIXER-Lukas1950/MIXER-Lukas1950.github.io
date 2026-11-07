@@ -319,74 +319,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     requestAnimationFrame(tick);
   }
 
-  // Blood drips: a few drops run down from the letters of each big section title,
-  // the first time it scrolls into view (once per visit), then stay.
-  const DRIPS_PER_TITLE = 3;
-
-  // Finds the text baseline so drips start right at the bottom of the letters
-  const baselineOffset = (title: HTMLElement): number => {
-    const textNode = title.firstChild as Text;
-    const probe = document.createElement('span');
-    probe.style.cssText = 'display:inline-block;width:0;height:0;vertical-align:baseline;';
-    title.insertBefore(probe, textNode.nextSibling);
-    const range = document.createRange();
-    const last = (textNode.textContent ?? '').length - 1;
-    range.setStart(textNode, last);
-    range.setEnd(textNode, last + 1);
-    const offset = range.getBoundingClientRect().bottom - probe.getBoundingClientRect().top;
-    probe.remove();
-    return offset;
-  };
-
-  const placeDrip = (title: HTMLElement, drip: HTMLSpanElement, offset: number) => {
-    const textNode = title.firstChild as Text;
-    const range = document.createRange();
-    range.setStart(textNode, Number(drip.dataset.char));
-    range.setEnd(textNode, Number(drip.dataset.char) + 1);
-    const letter = range.getBoundingClientRect();
-    const box = title.getBoundingClientRect();
-    drip.style.left = `${letter.left - box.left + letter.width * Number(drip.dataset.x)}px`;
-    drip.style.top = `${letter.bottom - offset - box.top - 3}px`;
-  };
-
-  const titles = [...document.querySelectorAll<HTMLElement>('.section-title')];
-
-  titles.forEach((title) => {
-    const textNode = title.firstChild;
-    if (!textNode || textNode.nodeType !== Node.TEXT_NODE) return;
-
-    // Pick letters spread across the title (skip spaces and punctuation)
-    const letters = [...(textNode.textContent ?? '')]
-      .map((ch, i) => (/[A-Za-z]/.test(ch) ? i : -1))
-      .filter((i) => i >= 0);
-    const step = letters.length / DRIPS_PER_TITLE;
-
-    for (let n = 0; n < DRIPS_PER_TITLE; n++) {
-      const pick = letters[Math.floor(n * step + Math.random() * step)];
-      const drip = document.createElement('span');
-      drip.className = 'drip';
-      drip.setAttribute('aria-hidden', 'true');
-      drip.dataset.char = String(pick);
-      drip.dataset.x = (0.3 + Math.random() * 0.4).toFixed(2);
-      drip.style.setProperty('--w', `${3 + Math.round(Math.random() * 2)}px`);
-      drip.style.setProperty('--len', `${16 + Math.round(Math.random() * 30)}px`);
-      drip.style.setProperty('--dur', `${(1.8 + Math.random() * 1.4).toFixed(2)}s`);
-      drip.style.setProperty('--delay', `${(n * 0.35 + Math.random() * 0.3).toFixed(2)}s`);
-      title.appendChild(drip);
-    }
-  });
-
-  const placeAll = () => titles.forEach((title) => {
-    const offset = baselineOffset(title);
-    title.querySelectorAll<HTMLSpanElement>('.drip').forEach((drip) => placeDrip(title, drip, offset));
-  });
-  document.fonts.ready.then(placeAll);
-  window.addEventListener('resize', placeAll);
+  // Section titles glitch in and bleed red the first time they scroll into view
+  const titles = document.querySelectorAll<HTMLElement>('.section-title');
 
   const watcher = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('bleeding');
+        entry.target.classList.add('revealed');
         watcher.unobserve(entry.target);
       }
     });
