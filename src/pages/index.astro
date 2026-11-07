@@ -3,6 +3,30 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout>
+  <div class="cam-boot" id="cam-boot" aria-hidden="true">
+    <span class="cam-boot__corner cam-boot__corner--tl"></span>
+    <span class="cam-boot__corner cam-boot__corner--tr"></span>
+    <span class="cam-boot__corner cam-boot__corner--bl"></span>
+    <span class="cam-boot__corner cam-boot__corner--br"></span>
+    <span class="cam-boot__stby">STBY</span>
+    <span class="cam-boot__rec"><span class="vf-dot"></span>REC</span>
+    <span class="cam-boot__time">00:00:00:00</span>
+  </div>
+  <script is:inline>
+    // Play the camera intro once per visit; skip it on refresh or for reduced motion
+    (function () {
+      var boot = document.getElementById('cam-boot');
+      if (!boot) return;
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var seen = false;
+      try { seen = sessionStorage.getItem('introPlayed') === '1'; } catch (e) {}
+      if (seen || reduce) { boot.remove(); return; }
+      document.documentElement.classList.add('intro-play');
+      try { sessionStorage.setItem('introPlayed', '1'); } catch (e) {}
+      setTimeout(function () { boot.remove(); }, 2600);
+    })();
+  </script>
+
   <section id="home" class="hero-section" style="flex-direction: column;">
     <img src="https://i.ytimg.com/vi/PkZ5PSclxp0/maxresdefault.jpg" alt="Still from Egg, a short film directed by Lukas Deemer" class="hero-image" />
     <div class="viewfinder" aria-hidden="true">
