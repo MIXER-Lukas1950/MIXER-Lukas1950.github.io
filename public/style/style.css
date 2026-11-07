@@ -223,6 +223,116 @@ textarea:focus-visible {
   font-weight: 500;
 }
 
+/* --- Opening: the camera powers on (about 2.4 seconds, once per visit) --- */
+.cam-boot {
+  position: fixed;
+  inset: 0;
+  z-index: 2500; /* under the film grain, so the black screen has noise */
+  background-color: var(--screen-black);
+  color: var(--print-white);
+  font-family: var(--font-script);
+  font-weight: 700;
+  pointer-events: none;
+  animation: boot-fade 0.6s ease-in 1.7s forwards; /* ends on its own, even without JavaScript */
+}
+
+@keyframes boot-fade {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.cam-boot__stby {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.1rem;
+  letter-spacing: 0.25em;
+  opacity: 0;
+  animation: stby-blink 1.1s steps(1) forwards;
+}
+
+@keyframes stby-blink {
+  0% { opacity: 0; }
+  15% { opacity: 1; }
+  30% { opacity: 0.2; }
+  45% { opacity: 1; }
+  95% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.cam-boot__corner {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 0 solid rgba(236, 228, 216, 0.85);
+  opacity: 0;
+  animation: corner-draw 0.5s ease-out 0.45s forwards;
+}
+
+.cam-boot__corner--tl { top: 5%; left: 5%; border-top-width: 2px; border-left-width: 2px; }
+.cam-boot__corner--tr { top: 5%; right: 5%; border-top-width: 2px; border-right-width: 2px; }
+.cam-boot__corner--bl { bottom: 5%; left: 5%; border-bottom-width: 2px; border-left-width: 2px; }
+.cam-boot__corner--br { bottom: 5%; right: 5%; border-bottom-width: 2px; border-right-width: 2px; }
+
+@keyframes corner-draw {
+  from { width: 0; height: 0; opacity: 1; }
+  to { width: 44px; height: 44px; opacity: 1; }
+}
+
+@keyframes corner-draw-small {
+  from { width: 0; height: 0; opacity: 1; }
+  to { width: 28px; height: 28px; opacity: 1; }
+}
+
+.cam-boot__rec,
+.cam-boot__time {
+  position: absolute;
+  top: calc(5% + 22px);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: 0.05em;
+  opacity: 0;
+  animation: rec-on 0.01s linear 1.05s forwards;
+}
+
+.cam-boot__rec { left: calc(5% + 26px); }
+.cam-boot__time { right: calc(5% + 26px); }
+
+@keyframes rec-on {
+  to { opacity: 1; }
+}
+
+/* After the camera is on, the name comes into focus */
+.intro-play .hero-name {
+  animation: name-focus 1s ease-out 1.9s both;
+}
+
+.intro-play .hero-section p {
+  animation: fade-up 0.8s ease-out 2.4s both;
+}
+
+@keyframes name-focus {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    letter-spacing: 0.12em;
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    letter-spacing: 0.02em;
+  }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 /* --- Sections --- */
 .content-section {
   padding: 110px 6%;
@@ -795,6 +905,10 @@ textarea:focus-visible {
     height: 85svh;
   }
 
+  .cam-boot__corner {
+    animation-name: corner-draw-small;
+  }
+
   .viewfinder {
     --len: 28px;
     inset: 4%;
@@ -837,6 +951,16 @@ textarea:focus-visible {
   body::before,
   .status-dot,
   .vf-dot {
+    animation: none;
+  }
+
+  /* No camera intro; the page simply appears */
+  .cam-boot {
+    display: none;
+  }
+
+  .intro-play .hero-name,
+  .intro-play .hero-section p {
     animation: none;
   }
 
